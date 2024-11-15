@@ -1,10 +1,10 @@
-// * IO Utilities
+// * Directory Utilities
 //
 // A simple toolkit for folder and file handling that eliminates
 // boilerplate or wraps commonly used functions in a consistent
 // namespace for easy remembrance/importing.
 
-package io
+package dir
 
 import (
 	"encoding/json"
@@ -15,6 +15,8 @@ import (
 	"time"
 
 	"github.com/chigopher/pathlib"
+
+	"gotils/time_utils"
 )
 
 // Returns the number of files within a directory structure of the targetName.
@@ -106,7 +108,7 @@ func CreateDirectory(path pathlib.Path) error {
 //
 //	error: Any error created while attempting to create the directory, else nil.
 func CreateDatedDirectory(path pathlib.Path) error {
-	datePath := path.Join(GetDate())
+	datePath := path.Join(time_utils.GetDate())
 	err := CreateDirectory(*datePath)
 	if err != nil {
 		return err
@@ -245,16 +247,6 @@ func CopyFolderContents(sourcePath pathlib.Path, destination pathlib.Path) error
 		}
 	}
 	return nil
-}
-
-// Returns string: 'yyyymmdd'.
-func GetDate() string {
-	return time.Now().Format("20060102")
-}
-
-// Returns string: 'HH:MM:SS:XX', X is microsecond.
-func GetTime() string {
-	return time.Now().Format("15:04:05:00")
 }
 
 // Exports a string map to json file path.
