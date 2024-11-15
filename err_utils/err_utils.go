@@ -1,6 +1,6 @@
 // * Error handling utilities
 
-package er
+package err_utils
 
 import "fmt"
 

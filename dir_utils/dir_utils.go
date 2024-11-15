@@ -4,7 +4,7 @@
 // boilerplate or wraps commonly used functions in a consistent
 // namespace for easy remembrance/importing.
 
-package dir
+package dir_utils
 
 import (
 	"fmt"
@@ -14,8 +14,8 @@ import (
 
 	"github.com/chigopher/pathlib"
 
+	"gotils/file_utils"
 	"gotils/time_utils"
-	"gotils/file"
 )
 
 // Returns the number of files within a directory structure of the targetName.
@@ -132,24 +132,6 @@ func DeleteDirectory(folderPath pathlib.Path) error {
 	return nil
 }
 
-// Removes specified file.
-//
-// Args:
-//
-//	filepath(pathlib.Path): The path to the file you wish to delete.
-//
-// Returns:
-//
-//	error: A custom error if the filepath was not within the safety path or a *PathError err from
-//	os.Remove, else Nil.
-func DeleteFile(filepath pathlib.Path) error {
-	err := os.Remove(filepath.String())
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
 // Delete all files in a directory.
 //
 // Args:
@@ -164,8 +146,8 @@ func DeleteSafeFilesInDirectory(folderPath pathlib.Path) error {
 	if err != nil {
 		return err
 	}
-	for _, file := range files {
-		err := DeleteFile(*pathlib.NewPath(file))
+	for _, f := range files {
+		err := file_utils.DeleteFile(*pathlib.NewPath(f))
 		if err != nil {
 			return err
 		}
@@ -208,7 +190,7 @@ func CopyFolderContents(sourcePath pathlib.Path, destination pathlib.Path) error
 				return err
 			}
 		} else {
-			err := file.CopyFile(*curItemPath, *destPath)
+			err := file_utils.CopyFile(*curItemPath, *destPath)
 			if err != nil {
 				return err
 			}

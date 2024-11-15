@@ -1,7 +1,7 @@
 // Herein is a library of helper functions for handling arrays.
 // These functions are geared for slices of strings, integers, float32, and float64.
 
-package arr
+package arr_utils
 
 import (
 	"math/rand"

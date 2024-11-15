@@ -1,4 +1,4 @@
-package file
+package file_utils
 
 import (
 	"encoding/json"
@@ -8,7 +8,7 @@ import (
 
 	"github.com/chigopher/pathlib"
 
-	"gotils/arr"
+	"gotils/arr_utils"
 )
 
 var imageFileExtensions = []string{".jpg", ".jpeg", ".png", ".tif", ".tiff", ".iff", ".tga", ".exr"}
@@ -18,7 +18,25 @@ var imageFileExtensions = []string{".jpg", ".jpeg", ".png", ".tif", ".tiff", ".i
 // {".jpg", ".jpeg", ".png", ".tif", ".tiff", ".iff", ".tga", ".exr"}
 func IsImageFile(filePath pathlib.Path) bool {
 	ext := filepath.Ext(filePath.String())
-	return arr.StringSliceContains(imageFileExtensions, ext)
+	return arr_utils.StringSliceContains(imageFileExtensions, ext)
+}
+
+// Removes specified file.
+//
+// Args:
+//
+//	filepath(pathlib.Path): The path to the file you wish to delete.
+//
+// Returns:
+//
+//	error: A custom error if the filepath was not within the safety path or a *PathError err from
+//	os.Remove, else Nil.
+func DeleteFile(filepath pathlib.Path) error {
+	err := os.Remove(filepath.String())
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 // Copy file into a separate destination folder.
