@@ -11,16 +11,6 @@ import (
 	"gotils/arr_utils"
 )
 
-var imageFileExtensions = []string{".jpg", ".jpeg", ".png", ".tif", ".tiff", ".iff", ".tga", ".exr"}
-
-// Returns whether the path contains an image file extension.
-// Extension if checked against internal list:
-// {".jpg", ".jpeg", ".png", ".tif", ".tiff", ".iff", ".tga", ".exr"}
-func IsImageFile(filePath pathlib.Path) bool {
-	ext := filepath.Ext(filePath.String())
-	return arr_utils.StringSliceContains(imageFileExtensions, ext)
-}
-
 // Removes specified file.
 //
 // Args:
@@ -107,4 +97,13 @@ func ExportMapToJson(filePath pathlib.Path, data map[string]interface{}, overWri
 		return nil
 	}
 	return nil
+}
+
+// Returns whether the path contains an image file extension.
+// Extension if checked against internal list:
+// {".jpg", ".jpeg", ".png", ".tif", ".tiff", ".iff", ".tga", ".exr"}
+func IsImageFile(filePath pathlib.Path) bool {
+	var imageFileExtensions = []string{".jpg", ".jpeg", ".png", ".tif", ".tiff", ".iff", ".tga", ".exr"}
+	ext := filepath.Ext(filePath.String())
+	return arr_utils.StringSliceContains(imageFileExtensions, ext)
 }
