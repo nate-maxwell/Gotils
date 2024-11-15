@@ -7,9 +7,7 @@
 package dir
 
 import (
-	"encoding/json"
 	"fmt"
-	"io"
 	"os"
 	"path/filepath"
 	"time"
@@ -17,6 +15,7 @@ import (
 	"github.com/chigopher/pathlib"
 
 	"gotils/time_utils"
+	"gotils/file"
 )
 
 // Returns the number of files within a directory structure of the targetName.
@@ -209,7 +208,7 @@ func CopyFolderContents(sourcePath pathlib.Path, destination pathlib.Path) error
 				return err
 			}
 		} else {
-			err := CopyFile(*curItemPath, *destPath)
+			err := file.CopyFile(*curItemPath, *destPath)
 			if err != nil {
 				return err
 			}
