@@ -29,3 +29,26 @@ func GetTimestampeOfTimezone(timeZone string) (time.Time, error) {
 	curTime := time.Now().In(loc)
 	return curTime, nil
 }
+
+// Returns the number of days between two given timestamps.
+func DiffInDays(start, end time.Time) int {
+	return int(end.Sub(start).Hours() / 24)
+}
+
+// Returns the number of specific weekdays between two timestamps.
+// 1 = Monday, 2 = Tuesday ... 7 = Sunday.
+func NumWeekdaysBetween(day int, start, end time.Time) int {
+	totalDays := 0
+	for start.Before(end) {
+		if int(start.Weekday()) == day {
+			totalDays += 1
+		}
+		start = start.AddDate(0, 0, 1)
+	}
+	return totalDays
+}
+
+// Is the given year a leap year.
+func IsLeapYear(year int) bool {
+	return year%4 == 0 && year%100 != 0 || year%400 == 0
+}

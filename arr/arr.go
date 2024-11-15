@@ -1,3 +1,6 @@
+// Herein is a library of helper functions for handling arrays.
+// These functions are geared for slices of strings, integers, float32, and float64.
+
 package arr
 
 import (
@@ -7,19 +10,94 @@ import (
 	"time"
 )
 
+// -------------------------------------------------- Contains --------------------------------------------------
+
+// Returns whether a string slice contains the given string.
+func StringSliceContains(input []string, e string) bool {
+	for _, i := range input {
+		if i == e {
+			return true
+		}
+	}
+	return false
+}
+
+// Returns whether a int slice contains the given int.
+func IntSliceContains(input []int, e int) bool {
+	for _, i := range input {
+		if i == e {
+			return true
+		}
+	}
+	return false
+}
+
+// Returns whether a float32 slice contains the given float32.
+func F32SliceContains(input []float32, e float32) bool {
+	for _, i := range input {
+		if i == e {
+			return true
+		}
+	}
+	return false
+}
+
+// Returns whether a float64 slice contains the given float64.
+func F64SliceContains(input []float64, e float64) bool {
+	for _, i := range input {
+		if i == e {
+			return true
+		}
+	}
+	return false
+}
+
+// -------------------------------------------------- Minify --------------------------------------------------
+
 // Removes duplicate entries from a slice of strings.
-//
-// Args:
-//
-//	strSlice([]string): The slice of strings to minify.
-//
-// Returns:
-//
-//	[]string: The minified slice of strings.
-func RemoveDuplicatesFromSlice(strSlice []string) []string {
+func RemoveDuplicatesString(input []string) []string {
 	keys := make(map[string]bool)
 	list := []string{}
-	for _, entry := range strSlice {
+	for _, entry := range input {
+		if _, value := keys[entry]; !value {
+			keys[entry] = true
+			list = append(list, entry)
+		}
+	}
+	return list
+}
+
+// Removes duplicate entries from a slice of integers.
+func RemoveDuplicatesInteger(input []int) []int {
+	keys := make(map[int]bool)
+	list := []int{}
+	for _, entry := range input {
+		if _, value := keys[entry]; !value {
+			keys[entry] = true
+			list = append(list, entry)
+		}
+	}
+	return list
+}
+
+// Removes duplicate entries from a slice of float32s.
+func RemoveDuplicatesF32(input []float32) []float32 {
+	keys := make(map[float32]bool)
+	list := []float32{}
+	for _, entry := range input {
+		if _, value := keys[entry]; !value {
+			keys[entry] = true
+			list = append(list, entry)
+		}
+	}
+	return list
+}
+
+// Removes duplicate entries from a slice of float64s.
+func RemoveDuplicatesF64(input []float64) []float64 {
+	keys := make(map[float64]bool)
+	list := []float64{}
+	for _, entry := range input {
 		if _, value := keys[entry]; !value {
 			keys[entry] = true
 			list = append(list, entry)
