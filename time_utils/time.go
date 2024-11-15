@@ -14,6 +14,7 @@ func GetTime() string {
 	return time.Now().Format("15:04:05:00")
 }
 
+// Whether the given timestamp between times a and b.
 func IsTimeBetweenAAndB(curTime, a, b time.Time) bool {
 	if curTime.After(a) && curTime.Before(b) {
 		return true
