@@ -5,6 +5,7 @@ import (
 	"strings"
 )
 
+// Converts a camelCase or PascalCase string to snake_case.
 func ConvertToSnakeCase(input string) string {
 	var matchChars = regexp.MustCompile("(.)([A-Z][a-z]+)")
 	var matchAlpha = regexp.MustCompile("([a-z0-9])([A-Z])")
@@ -14,6 +15,7 @@ func ConvertToSnakeCase(input string) string {
 	return strings.ToLower(snake)
 }
 
+// Converts a snake_case string to camelCase.
 func ConvertSnakeToCamel(snake string) string {
 	re := regexp.MustCompile("(_[a-z])")
 	return re.ReplaceAllStringFunc(snake, func(s string) string {
@@ -21,12 +23,10 @@ func ConvertSnakeToCamel(snake string) string {
 	})
 }
 
+// Converts a snake_case string to PascalCase.
 func ConvertSnakeToPascale(snake string) string {
-	re := regexp.MustCompile("(_[a-z])")
-	result := re.ReplaceAllStringFunc(snake, func(s string) string {
-		return strings.ToUpper(s[1:])
-	})
-	t := strings.ToUpper(string(result[0])) + result[1:]
+	c := ConvertSnakeToCamel(snake)
+	p := strings.ToUpper(string(c[0])) + c[1:]
 
-	return t
+	return p
 }
