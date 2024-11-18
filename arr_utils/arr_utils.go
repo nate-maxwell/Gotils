@@ -15,12 +15,12 @@ import (
 // FindIndex returns the index of an element in a slice.
 // If the element is not found, it returns -1.
 func FindIndex[T comparable](arr []T, target T) int {
-    for i, v := range arr {
-        if v == target {
-            return i
-        }
-    }
-    return -1
+	for i, v := range arr {
+		if v == target {
+			return i
+		}
+	}
+	return -1
 }
 
 // -------------------------------------------------- Contains --------------------------------------------------
