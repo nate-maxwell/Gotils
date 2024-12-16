@@ -1,7 +1,7 @@
 // Herein is a library of helper functions for handling arrays.
 // These functions are geared for slices of strings, integers, float32, and float64.
 
-package arr
+package arr_utils
 
 import (
 	"math/rand"
@@ -9,6 +9,19 @@ import (
 	"strings"
 	"time"
 )
+
+// -------------------------------------------------- Generic --------------------------------------------------
+
+// FindIndex returns the index of an element in a slice.
+// If the element is not found, it returns -1.
+func FindIndex[T comparable](arr []T, target T) int {
+	for i, v := range arr {
+		if v == target {
+			return i
+		}
+	}
+	return -1
+}
 
 // -------------------------------------------------- Contains --------------------------------------------------
 
