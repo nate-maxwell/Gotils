@@ -1,4 +1,4 @@
-package disk
+package disk_utils
 
 import (
 	"github.com/chigopher/pathlib"
