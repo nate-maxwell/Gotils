@@ -2,7 +2,10 @@ module gotils
 
 go 1.22.1
 
-require github.com/chigopher/pathlib v0.19.1
+require (
+	github.com/chigopher/pathlib v0.19.1
+	golang.org/x/sys v0.28.0
+)
 
 require (
 	github.com/spf13/afero v1.4.0 // indirect
