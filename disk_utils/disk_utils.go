@@ -1,6 +1,9 @@
 package disk_utils
 
 import (
+	"os"
+	"path/filepath"
+
 	"github.com/chigopher/pathlib"
 	"golang.org/x/sys/windows"
 )
@@ -8,7 +11,7 @@ import (
 // Gets the various space statistics for teh given path.
 // Takes path(pathlib.Path).
 // Returns freeBytesAvailable(int), totalBytes(int), totalFreeBytes(int), err(error).
-func GetFreeSpace(path pathlib.Path) (uint64, uint64, uint64, error) {
+func GetDriveFreeSpace(path pathlib.Path) (uint64, uint64, uint64, error) {
 	var freeBytesAvailable, totalBytes, totalFreeBytes uint64
 
 	pathPtr, err := windows.UTF16PtrFromString(path.String())
@@ -22,4 +25,29 @@ func GetFreeSpace(path pathlib.Path) (uint64, uint64, uint64, error) {
 	}
 
 	return freeBytesAvailable, totalBytes, totalFreeBytes, nil
+}
+
+// Returns the size of the directory by recursively indexing its contents.
+func GetDirSize(folderPath pathlib.Path) (int64, error) {
+	var totalSize int64
+
+	err := filepath.WalkDir(folderPath.String(), func(path string, d os.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+
+		if !d.IsDir() {
+			info, err := d.Info()
+			if err != nil {
+				return err
+			}
+			totalSize += info.Size()
+		}
+		return nil
+	})
+	if err != nil {
+		return 0, err
+	}
+
+	return totalSize, nil
 }
