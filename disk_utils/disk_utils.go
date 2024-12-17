@@ -27,7 +27,7 @@ func GetDriveFreeSpace(path pathlib.Path) (uint64, uint64, uint64, error) {
 	return freeBytesAvailable, totalBytes, totalFreeBytes, nil
 }
 
-// Returns the size of the directory by recursively indexing its contents.
+// Returns the byte size of the directory by recursively indexing its contents.
 func GetDirSize(folderPath pathlib.Path) (int64, error) {
 	var totalSize int64
 
