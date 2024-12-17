@@ -1,6 +1,7 @@
 package file_utils
 
 import (
+	"bufio"
 	"encoding/json"
 	"io"
 	"os"
@@ -10,6 +11,8 @@ import (
 
 	"gotils/arr_utils"
 )
+
+const chunkSize = 512
 
 // Removes specified file.
 //
@@ -106,4 +109,31 @@ func IsImageFile(filePath pathlib.Path) bool {
 	var imageFileExtensions = []string{".jpg", ".jpeg", ".png", ".tif", ".tiff", ".iff", ".tga", ".exr"}
 	ext := filepath.Ext(filePath.String())
 	return arr_utils.StringSliceContains(imageFileExtensions, ext)
+}
+
+// IsBinaryFile determines if a file is binary by examining its content.
+func IsBinaryFile(filePath string) (bool, error) {
+	file, err := os.Open(filePath)
+	if err != nil {
+		return false, err
+	}
+	defer file.Close()
+
+	reader := bufio.NewReader(file)
+	buffer := make([]byte, chunkSize)
+
+	// Read the first chunk of the file
+	n, err := reader.Read(buffer)
+	if err != nil && err.Error() != "EOF" {
+		return false, err
+	}
+
+	// Check each byte for non-ASCII characters
+	for i := 0; i < n; i++ {
+		if buffer[i] > 127 {
+			return true, nil
+		}
+	}
+
+	return false, nil
 }
