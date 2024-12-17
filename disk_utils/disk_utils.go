@@ -8,7 +8,7 @@ import (
 	"golang.org/x/sys/windows"
 )
 
-// Gets the various space statistics for teh given path.
+// Gets the various space statistics for the given path.
 // Takes path(pathlib.Path).
 // Returns freeBytesAvailable(int), totalBytes(int), totalFreeBytes(int), err(error).
 func GetDriveFreeSpace(path pathlib.Path) (uint64, uint64, uint64, error) {
