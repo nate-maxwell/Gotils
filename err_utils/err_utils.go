@@ -15,7 +15,7 @@ import "fmt"
 // You can write:
 // >>> utils.ErrMust(someFunc(args...))
 // and it will panic if the error is not nil.
-func ErrMust(err error) {
+func ValueOrPanic(err error) {
 	if err != nil {
 		fmt.Println(err)
 		panic(err)
@@ -32,10 +32,18 @@ func ErrMust(err error) {
 // You can write:
 // >>> foo := utils.RetMust(someFunc(args...))
 // and it will panic if the error is not nil.
-func RetMust[T any](value T, err error) T {
+func PanicIfError[T any](value T, err error) T {
 	if err != nil {
 		fmt.Println(err)
 		panic(err)
 	}
 	return value
+}
+
+// Boilerplate reduction for the err != nil check for prints.
+func MessageIfError(msg string, err error) {
+	if err != nil {
+		formatted := fmt.Sprintf("%s: %s", msg, err)
+		fmt.Println(formatted)
+	}
 }
