@@ -88,7 +88,7 @@ func CreateDirectory(path pathlib.Path) error {
 	if err != nil {
 		return err
 	}
-	if exists {
+	if !exists {
 		err = os.MkdirAll(path.String(), 0777)
 		if err != nil {
 			return err
