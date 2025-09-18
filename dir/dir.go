@@ -1,4 +1,4 @@
-package dir_utils
+package dir
 
 import (
 	"fmt"
@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"gotils/file_utils"
-	"gotils/time_utils"
+	"gotils/chrono"
+	"gotils/file"
 )
 
 // CountFilesByName returns the number of files within rootDir of targetName.
@@ -43,7 +43,7 @@ func GetDirContents(path string) ([]string, error) {
 
 // CreateDatedDirectory creates a directory with today's date as the name.
 func CreateDatedDirectory(path string) error {
-	datePath := filepath.Join(path, time_utils.GetDate())
+	datePath := filepath.Join(path, chrono.GetDate())
 	return os.MkdirAll(datePath, 0777)
 }
 
@@ -91,7 +91,7 @@ func CopyFolderContents(source string, dest string) error {
 				return err
 			}
 		} else {
-			err := file_utils.CopyFile(curItemPath, destPath)
+			err := file.CopyFile(curItemPath, destPath)
 			if err != nil {
 				return err
 			}

@@ -1,4 +1,4 @@
-package time_utils
+package chrono
 
 import (
 	"time"

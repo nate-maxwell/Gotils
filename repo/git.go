@@ -1,4 +1,4 @@
-package repo_utils
+package repo
 
 import (
 	"fmt"

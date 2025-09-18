@@ -1,4 +1,4 @@
-package disk_utils
+package disk
 
 import (
 	"os"

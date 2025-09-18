@@ -1,4 +1,4 @@
-package size_utils
+package measure
 
 type ByteSize uint64
 

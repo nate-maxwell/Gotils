@@ -1,4 +1,4 @@
-package terminal_utils
+package terminal
 
 import (
 	"fmt"
@@ -6,6 +6,10 @@ import (
 	"os/exec"
 	"runtime"
 	"strings"
+
+	"golang.org/x/term"
+
+	"gotils/globals"
 )
 
 // Clears the terminal of any current output.
@@ -21,12 +25,18 @@ func ClearTerminal() {
 	cmd.Run()
 }
 
+// Returns the current terminal width if it can be found else 80.
+func GetOutputWidth() int {
+	if term.IsTerminal(int(os.Stdout.Fd())) {
+		width, _, err := term.GetSize(int(os.Stdout.Fd()))
+		if err == nil {
+			return width
+		}
+	}
+	return globals.DEFAULT_TERMINAL_W
+}
+
 // Prints a progress bar of the given length, filled to the given percent.
-//
-// Args:
-//
-//	len(int): How many characters long the bar should be.
-//	percent(float64): What percentage of the bar is filled.
 func DrawProgressBar(len int, percent float64) {
 	filledLen := int(float64(len) * percent)
 

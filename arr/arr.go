@@ -1,4 +1,4 @@
-package arr_utils
+package arr
 
 import (
 	"math/rand"
