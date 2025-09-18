@@ -4,14 +4,12 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
-
-	"github.com/chigopher/pathlib"
 )
 
 // runGitCommand will run the given git commands in the given directory.
-func runGitCommand(dir *pathlib.Path, args ...string) error {
+func runGitCommand(dir string, args ...string) error {
 	cmd := exec.Command("git", args...)
-	cmd.Dir = dir.String()
+	cmd.Dir = dir
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		return fmt.Errorf("command failed: %s\noutput: %s", err, output)
@@ -21,8 +19,8 @@ func runGitCommand(dir *pathlib.Path, args ...string) error {
 }
 
 // PullGitRepo navigates to teh specified directory and runs 'git pull'.
-func PullGitRepo(dir *pathlib.Path) error {
-	err := os.Chdir(dir.String())
+func PullGitRepo(dir string) error {
+	err := os.Chdir(dir)
 	if err != nil {
 		return fmt.Errorf("PullGitRepo failed to change directory: %v", err)
 	}
@@ -36,8 +34,8 @@ func PullGitRepo(dir *pathlib.Path) error {
 }
 
 // ChangeGitBranch navigates to teh specified directory and runs 'git checkout <branch>'.
-func ChangeGitBranch(dir *pathlib.Path, branch string) error {
-	err := os.Chdir(dir.String())
+func ChangeGitBranch(dir string, branch string) error {
+	err := os.Chdir(dir)
 	if err != nil {
 		return fmt.Errorf("ChangeGitBranch failed to change directory: %v", err)
 	}

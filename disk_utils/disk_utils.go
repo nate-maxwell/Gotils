@@ -4,17 +4,15 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/chigopher/pathlib"
 	"golang.org/x/sys/windows"
 )
 
-// Gets the various space statistics for the given path.
-// Takes path(pathlib.Path).
+// GetDriveFreeSpace gets the various space statistics for given path.
 // Returns freeBytesAvailable(int), totalBytes(int), totalFreeBytes(int), err(error).
-func GetDriveFreeSpace(path pathlib.Path) (uint64, uint64, uint64, error) {
+func GetDriveFreeSpace(path string) (uint64, uint64, uint64, error) {
 	var freeBytesAvailable, totalBytes, totalFreeBytes uint64
 
-	pathPtr, err := windows.UTF16PtrFromString(path.String())
+	pathPtr, err := windows.UTF16PtrFromString(path)
 	if err != nil {
 		return 0, 0, 0, err
 	}
@@ -28,10 +26,10 @@ func GetDriveFreeSpace(path pathlib.Path) (uint64, uint64, uint64, error) {
 }
 
 // Returns the byte size of the directory by recursively indexing its contents.
-func GetDirSize(folderPath pathlib.Path) (int64, error) {
+func GetDirSize(folderPath string) (int64, error) {
 	var totalSize int64
 
-	err := filepath.WalkDir(folderPath.String(), func(path string, d os.DirEntry, err error) error {
+	err := filepath.WalkDir(folderPath, func(path string, d os.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
