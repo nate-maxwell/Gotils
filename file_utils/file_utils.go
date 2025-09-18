@@ -5,8 +5,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
-
-	"gotils/arr_utils"
+	"slices"
 )
 
 const chunkSize = 512
@@ -41,7 +40,7 @@ func IsImageFile(filePath string) bool {
 		".jpg", ".jpeg", ".png", ".tif", ".tiff", ".iff", ".tga", ".exr",
 	}
 	ext := filepath.Ext(filePath)
-	return arr_utils.StringSliceContains(imageFileExtensions, ext)
+	return slices.Contains(imageFileExtensions, ext)
 }
 
 // IsBinaryFile determines if a file is binary by examining its content.

@@ -3,8 +3,6 @@ package str_utils
 import (
 	"regexp"
 	"strings"
-
-	"github.com/chigopher/pathlib"
 )
 
 // Converts a camelCase or PascalCase string to snake_case.
@@ -33,9 +31,9 @@ func ConvertSnakeToPascal(snake string) string {
 	return p
 }
 
-// Returns the first path found in the input line string as a pathlib.Path.
-func FindPathInLine(inputLine string) pathlib.Path {
+// FindPathInLine returns the first path found in the input line.
+func FindPathInLine(inputLine string) string {
 	pathPattern := regexp.MustCompile(`[A-Za-z]:[\\/](?:[\w.-]+[\\/]*)+`)
 	found := pathPattern.FindString(inputLine)
-	return *pathlib.NewPath(found)
+	return found
 }

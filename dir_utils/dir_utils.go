@@ -1,9 +1,3 @@
-// * Directory Utilities
-//
-// A simple toolkit for folder and file handling that eliminates
-// boilerplate or wraps commonly used functions in a consistent
-// namespace for easy remembrance/importing.
-
 package dir_utils
 
 import (
