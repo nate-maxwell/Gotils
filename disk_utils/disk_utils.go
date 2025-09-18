@@ -8,7 +8,8 @@ import (
 )
 
 // GetDriveFreeSpace gets the various space statistics for given path.
-// Returns freeBytesAvailable(int), totalBytes(int), totalFreeBytes(int), err(error).
+// Returns freeBytesAvailable(int), totalBytes(int), totalFreeBytes(int),
+// err(error).
 func GetDriveFreeSpace(path string) (uint64, uint64, uint64, error) {
 	var freeBytesAvailable, totalBytes, totalFreeBytes uint64
 
@@ -17,7 +18,9 @@ func GetDriveFreeSpace(path string) (uint64, uint64, uint64, error) {
 		return 0, 0, 0, err
 	}
 
-	err = windows.GetDiskFreeSpaceEx(pathPtr, &freeBytesAvailable, &totalBytes, &totalFreeBytes)
+	err = windows.GetDiskFreeSpaceEx(
+		pathPtr, &freeBytesAvailable, &totalBytes, &totalFreeBytes,
+	)
 	if err != nil {
 		return 0, 0, 0, err
 	}
